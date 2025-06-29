@@ -9,8 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@electron/rebuild": "^3.7.1",
-    "electron": "^35.0.0",
-    "msnodesqlv8": "^4.5.0"
+    "@electron/rebuild": "^4.0.1",
+    "electron": "^37.1.0",
+    "msnodesqlv8": "file:../../v8/node_modules/msnodesqlv8/msnodesqlv8-5.0.0.tgz"
   }
 }
