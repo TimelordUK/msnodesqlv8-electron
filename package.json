@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@electron/rebuild": "^4.0.1",
-    "electron": "^37.1.0",
-    "msnodesqlv8": "file:../../v8/node_modules/msnodesqlv8/msnodesqlv8-5.0.0.tgz"
+    "electron": "^37.2.1",
+    "msnodesqlv8": "^5.1.0"
   }
 }
