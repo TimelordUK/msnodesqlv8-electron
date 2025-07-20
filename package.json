@@ -5,10 +5,9 @@
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "electron:dev": "NODE_ENV=development vite --mode development",
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "electron:dev": "electron . --dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

@@ -115,9 +115,18 @@ async function connectToDatabase() {
         console.log('✅ Database connection successful');
         showMessage('Successfully connected to SQL Server', 'success');
         
-        // Show connection info
-        if (result && result.length > 0) {
-            const version = result[0].Version;
+        // Show connection info - handle AggregatorResults format
+        let rows = [];
+        if (result && typeof result === 'object') {
+            if (Array.isArray(result)) {
+                rows = result;
+            } else if (result.first && Array.isArray(result.first)) {
+                rows = result.first;
+            }
+        }
+        
+        if (rows && rows.length > 0 && rows[0].Version) {
+            const version = rows[0].Version;
             console.log('📊 SQL Server version:', version);
             showMessage(`Connected to: ${version.split('\n')[0]}`, 'success');
         }
@@ -185,8 +194,22 @@ async function executeQuery(queryKey) {
         const result = await sql.promises.query(connectionString, query.sql);
         const duration = Date.now() - startTime;
         
-        console.log(`✅ Query completed in ${duration}ms, ${result.length} rows returned`);
-        displayResults(result, query.name, duration);
+        console.log(`✅ Query completed in ${duration}ms`, result);
+        
+        // Handle msnodesqlv8 AggregatorResults format
+        let rows = [];
+        if (result && typeof result === 'object') {
+            if (Array.isArray(result)) {
+                rows = result;
+            } else if (result.first && Array.isArray(result.first)) {
+                rows = result.first;
+            } else if (result.rows && Array.isArray(result.rows)) {
+                rows = result.rows;
+            }
+        }
+        
+        console.log(`📊 Processed ${rows.length} rows from result`);
+        displayResults(rows, query.name, duration);
         
     } catch (error) {
         console.error('❌ Query execution failed:', error);
@@ -394,28 +417,27 @@ function updateDebugInfo() {
     }
 }
 
-// HMR support
-if (import.meta.hot) {
-    import.meta.hot.accept(() => {
-        console.log('🔥 HMR: Module reloading...');
-        cleanupMSNodeSQLv8();
-        setTimeout(async () => {
-            if (await initializeMSNodeSQLv8()) {
-                showMessage('HMR: Module reloaded successfully', 'success');
+// Simple reload mechanism for development
+function setupDevReload() {
+    if (process.argv.includes('--dev')) {
+        console.log('🔄 Development mode - manual reload available');
+        console.log('Press Ctrl+R to reload the window');
+        
+        // Add keyboard shortcut for reload
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'r') {
+                e.preventDefault();
+                location.reload();
             }
-        }, 100);
-    });
-
-    import.meta.hot.dispose(() => {
-        console.log('🔥 HMR: Disposing module...');
-        cleanupMSNodeSQLv8();
-    });
+        });
+    }
 }
 
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('🚀 Application starting...');
     initializeUI();
+    setupDevReload();
     
     // Initialize module but don't auto-connect
     await initializeMSNodeSQLv8();
