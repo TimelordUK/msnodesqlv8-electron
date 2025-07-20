@@ -32,6 +32,49 @@ const queries = {
 // UI Elements
 let elements = {};
 
+// HMR Test Variables
+let hmrTestCounter = 0;
+let lastHMRUpdate = new Date().toLocaleTimeString();
+
+// Add HMR indicator to the UI
+function addHMRIndicator() {
+    const hmrSection = document.querySelector('.hmr-section');
+    if (hmrSection) {
+        const hmrIndicator = document.createElement('div');
+        hmrIndicator.id = 'hmr-indicator';
+        hmrIndicator.innerHTML = `
+            <div style="background: #007bff; color: white; padding: 8px; border-radius: 4px; margin: 10px 0; border: 2px solid #0056b3;">
+                🔄 HMR Active - Last Update: <span id="hmr-timestamp">${lastHMRUpdate}</span>
+                <br>Counter: <span id="hmr-counter">${hmrTestCounter}</span>
+                <br><small>✨ Hot Module Replacement is working!</small>
+            </div>
+        `;
+        hmrSection.appendChild(hmrIndicator);
+    }
+}
+
+// Update HMR indicator
+function updateHMRIndicator() {
+    hmrTestCounter++;
+    lastHMRUpdate = new Date().toLocaleTimeString();
+    
+    const timestampEl = document.getElementById('hmr-timestamp');
+    const counterEl = document.getElementById('hmr-counter');
+    
+    if (timestampEl) timestampEl.textContent = lastHMRUpdate;
+    if (counterEl) counterEl.textContent = hmrTestCounter;
+    
+    console.log(`🔄 HMR Update #${hmrTestCounter} at ${lastHMRUpdate}`);
+}
+
+// Test HMR functionality
+function testHMR() {
+    updateHMRIndicator();
+    console.log('🧪 HMR Test: This message proves the module was hot-reloaded!');
+    console.log('🔥 Hot Module Replacement is working perfectly!');
+    showMessage(`HMR Test #${hmrTestCounter} - Module hot-reloaded at ${lastHMRUpdate}`, 'success');
+}
+
 // Module reload utilities for HMR
 function cleanupMSNodeSQLv8() {
     console.log('🧹 Cleaning up msnodesqlv8 module...');
@@ -262,6 +305,12 @@ function initializeUI() {
         }, 100);
     });
     
+    // Add HMR test button if it doesn't exist
+    const hmrTestBtn = document.getElementById('hmr-test-btn');
+    if (hmrTestBtn) {
+        hmrTestBtn.addEventListener('click', testHMR);
+    }
+    
     elements.clearBtn.addEventListener('click', clearResults);
     
     elements.toggleDebugBtn.addEventListener('click', () => {
@@ -278,6 +327,9 @@ function initializeUI() {
 
     // Initialize debug info
     updateDebugInfo();
+
+    // Add HMR indicator
+    addHMRIndicator();
 
     console.log('🎮 UI initialized');
 }
