@@ -12,7 +12,9 @@ A demo Electron application for testing SQL Server connectivity with Hot Module 
 
 ## Screenshot
 
-![msnodesqlv8-electron Demo](image.png)
+![msnodesqlv8-electron Demo](screenshot.png)
+
+*Note: Add a screenshot of your application as `screenshot.png` in the project root to display it here.*
 
 ## Installation
 
