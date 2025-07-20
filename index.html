@@ -8,10 +8,79 @@
     <title>Hello World!</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+    <div class="container">
+      <header>
+        <h1>🗄️ msnodesqlv8 Demo</h1>
+        <p class="subtitle">Testing SQL Server connectivity with HMR support</p>
+      </header>
+
+      <div class="connection-section">
+        <h2>📡 Connection Status</h2>
+        <div id="connection-status" class="status-indicator">
+          <span class="status-dot"></span>
+          <span class="status-text">Not Connected</span>
+        </div>
+        <button id="connect-btn" class="btn btn-primary">Connect to Database</button>
+        <button id="disconnect-btn" class="btn btn-secondary" disabled>Disconnect</button>
+      </div>
+
+      <div class="queries-section">
+        <h2>📊 Sample Queries</h2>
+        <div class="query-buttons">
+          <button id="query-tables" class="btn btn-query" disabled>Show Tables</button>
+          <button id="query-columns" class="btn btn-query" disabled>Show System Columns</button>
+          <button id="query-databases" class="btn btn-query" disabled>List Databases</button>
+          <button id="query-version" class="btn btn-query" disabled>SQL Server Version</button>
+        </div>
+      </div>
+
+      <div class="results-section">
+        <h2>📋 Query Results</h2>
+        <div id="results-container">
+          <div class="no-data">No data to display. Connect to database and run a query.</div>
+        </div>
+      </div>
+
+      <div class="hmr-section">
+        <h2>🔄 HMR Testing</h2>
+        <button id="reload-module" class="btn btn-warning">Reload Module</button>
+        <button id="clear-results" class="btn btn-light">Clear Results</button>
+        <button id="toggle-debug" class="btn btn-light">Toggle Debug Info</button>
+      </div>
+
+      <div class="debug-section" id="debug-section" style="display: none;">
+        <h2>🐛 Debug Information</h2>
+        <div id="debug-info">
+          <div class="debug-item">
+            <label>Module Status:</label>
+            <span id="debug-module-status">Not loaded</span>
+          </div>
+          <div class="debug-item">
+            <label>Connection String:</label>
+            <span id="debug-connection-string">Not set</span>
+          </div>
+          <div class="debug-item">
+            <label>Last Error:</label>
+            <span id="debug-last-error">None</span>
+          </div>
+          <div class="debug-item">
+            <label>DevTools:</label>
+            <span>Press F12 or Ctrl+Shift+I to open</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-section">
+        <details>
+          <summary>System Info</summary>
+          <div class="system-info">
+            <p>Node.js: <span id="node-version"></span></p>
+            <p>Chromium: <span id="chrome-version"></span></p>
+            <p>Electron: <span id="electron-version"></span></p>
+          </div>
+        </details>
+      </div>
+    </div>
 
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>

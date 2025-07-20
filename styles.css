@@ -1,3 +1,284 @@
 /* styles.css */
 
-/* Add styles here to customize the appearance of your app */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+
+.subtitle {
+  color: #7f8c8d;
+  font-size: 1.1em;
+}
+
+.connection-section,
+.queries-section,
+.results-section,
+.hmr-section,
+.debug-section,
+.info-section {
+  background: rgba(255, 255, 255, 0.95);
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.debug-section {
+  border: 2px solid #ffc107;
+  background: rgba(255, 193, 7, 0.1);
+}
+
+.debug-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.debug-item:last-child {
+  border-bottom: none;
+}
+
+.debug-item label {
+  font-weight: 600;
+  color: #495057;
+}
+
+.debug-item span {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #6c757d;
+  max-width: 60%;
+  word-break: break-all;
+}
+
+h2 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 1.4em;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 2px solid #e9ecef;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #dc3545;
+  margin-right: 10px;
+  animation: pulse 2s infinite;
+}
+
+.status-indicator.connected .status-dot {
+  background: #28a745;
+}
+
+.status-indicator.connecting .status-dot {
+  background: #ffc107;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 5px;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: #007bff;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #0056b3;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-query {
+  background: #17a2b8;
+  color: white;
+}
+
+.btn-query:hover:not(:disabled) {
+  background: #138496;
+}
+
+.btn-warning {
+  background: #ffc107;
+  color: #212529;
+}
+
+.btn-light {
+  background: #f8f9fa;
+  color: #212529;
+  border: 1px solid #dee2e6;
+}
+
+.query-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#results-container {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 15px;
+  min-height: 200px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.no-data {
+  color: #6c757d;
+  font-style: italic;
+  text-align: center;
+  padding: 40px;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.results-table th,
+.results-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.results-table th {
+  background: #e9ecef;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+}
+
+.results-table tr:hover {
+  background: #f5f5f5;
+}
+
+.error-message {
+  color: #dc3545;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.success-message {
+  color: #155724;
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 6px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.query-info {
+  background: #e7f3ff;
+  border: 1px solid #b3d9ff;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+}
+
+details summary {
+  cursor: pointer;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.system-info {
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.system-info p {
+  margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  
+  .query-buttons {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+}
